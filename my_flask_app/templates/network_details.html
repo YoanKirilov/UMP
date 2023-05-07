@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>SmartNetScan</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    /* Small devices (phones) */
+    @media only screen and (max-width: 600px) {
+      .container {
+        font-size: 16px;
+        padding: 12px;
+      }
+
+      button {
+        height: 180px;
+        width: 180px;
+        font-size: 16px;
+      }
+
+      h1 {
+        font-size: 28px;
+      }
+
+      h2 {
+        font-size: 24px;
+      }
+
+      th,
+      td {
+        font-size: 14px;
+      }
+    }
+
+    /* Medium devices (tablets) */
+    @media only screen and (max-width: 900px) {
+      .container {
+        font-size: 18px;
+      }
+
+      button {
+        height: 220px;
+        width: 220px;
+      }
+
+      h1 {
+        font-size: 36px;
+      }
+
+      h2 {
+        font-size: 30px;
+      }
+
+      th,
+      td {
+        font-size: 16px;
+      }
+    }
+
+    /* Large devices (laptops/desktops) */
+    @media only screen and (min-width: 1200px) {
+
+      button {
+        height: 240px;
+        width: 240px;
+      }
+
+      h1 {
+        font-size: 38px;
+      }
+
+      h2 {
+        font-size: 28px;
+      }
+
+      th,
+      td {
+        font-size: 18px;
+      }
+    }
+
+    * {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
+
+    *.hide {
+      display: none !important;
+    }
+
+    body {
+      height: 100vh;
+      background: linear-gradient(45deg, #14222e, #144272);
+      color: #eaeaea;
+    }
+
+    .loader {
+      position: relative;
+      display: inline-block;
+      height: 240px;
+      width: 240px;
+      border-radius: 50%;
+      background: conic-gradient(rgba(1, 182, 190, 0.3) 0%, transparent 65%);
+      animation: radarRotate 1s infinite linear;
+    }
+
+    @keyframes radarRotate {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(-360deg);
+      }
+    }
+
+    .loader:before {
+      content: '';
+      position: absolute;
+      height: 0;
+      width: 0;
+      top: 0;
+      left: calc(50% - 8px);
+      border: 8px solid transparent;
+      border-top: 120px solid #81ecec;
+      filter: drop-shadow(0 0 12px #01b6be);
+    }
+
+    .container {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      position: relative;
+      display: inline-block;
+      padding: 16px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: linear-gradient(45deg, transparent 50%, rgba(255, 255, 255, 0.08));
+      background-color: #0A2647;
+      border-radius: 24px;
+      text-align: center;
+    }
+
+    button {
+      position: relative;
+      cursor: pointer;
+      height: 240px;
+      width: 240px;
+      font-size: 18px;
+      margin-bottom: 15px;
+      font-weight: bold;
+      line-height: 1.5;
+      border-radius: 50%;
+      background-color: #0A2647;
+      color: #aaffff;
+      border: 0;
+      box-shadow: 0 0 12px #81ecec;
+    }
+
+    button:hover {
+      background-color: #205295;
+    }
+
+    button:before {
+      content: '';
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      top: -2px;
+      left: -2px;
+      border: 2px solid #7ed6d4;
+      border-radius: 50%;
+      animation: btnRing 2s linear;
+    }
+
+    @keyframes btnRing {
+
+      60%,
+      100% {
+        height: calc(100% + 60px);
+        width: calc(100% + 60px);
+        top: -32px;
+        left: -32px;
+        opacity: 0;
+      }
+    }
+
+    button:after {
+      content: '';
+      position: absolute;
+      height: calc(100% + 4px);
+      width: calc(100% + 4px);
+      top: -2px;
+      left: -2px;
+      background: linear-gradient(45deg, #25476e, #c7ecee);
+      z-index: -1;
+      border-radius: 51%;
+    }
+
+    .content {
+      display: flex;
+      width: 100%;
+      margin: 12px 0 32px 0;
+      flex-direction: column;
+    }
+
+    h1 {
+      line-height: 1.3;
+      margin-bottom: 13px;
+      color: #aaffff;
+      text-shadow: 0 0 8px #81ecec;
+    }
+
+    h2 {
+      margin-bottom: 13px;
+      color: #aaffff;
+      text-shadow: 0 0 8px #81ecec;
+    }
+
+    table {
+      position: relative;
+      align-items: center;
+      color: #144272;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      text-align: left;
+      padding: 8px;
+      color: #aaffff;
+      text-shadow: 0 0 8px #81ecec;
+    }
+
+    tr:hover {
+      background-color: #14222e;
+    }
+
+    .info {
+      font-weight: bold;
+      color: #aaffff;
+      cursor: help;
+    }
+
+    .info-text {
+      position: absolute;
+      text-align: left;
+      background-color: #144272;
+      width: fit-content;
+      padding: 8px;
+      color: #aaffff;
+      text-shadow: 0 0 8px #81ecec;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <!--A container with two headings and a loader-->
+    <div class="heading1">
+      <h1 style="text-align: center">SmartNetScan</h1>
+    </div>
+    <div class="heading2 hide">
+      <h1 style="text-align: center">Scanning...</h1>
+    </div>
+    <span class="loader hide"></span>
+    <div class="content">
+      <!--A form with a button to trigger the hideButton() function -->
+    </div>
+    <div class="Button" style="display: flex; justify-content: center;">
+      <form method="post">
+        <button type="submit" onclick="hideButton()">Scan</button>
+      </form>
+    </div>
+    <div class="sub-heading hide">
+      <h2 style="text-align: center">Networking Details</h2>
+    </div>
+    <div class="results">
+      <!-- A results section that displays network data in a table -->
+      {% if network_data %}
+      <table id="table" style="margin: 0 auto;">
+        {% for key, value in network_data.items() %}
+        <tr>
+          <td class="info" onmouseover="showInfo(this)" onmouseout="hideInfo(this)">?</td>
+          <td>{{ key }}</td>
+          <td>{{ value[0] }}</td>
+        </tr>
+        <tr id="text-info" class="info-text hide">
+          <td colspan="3"></td>
+        </tr>
+        {% endfor %}
+      </table>
+      {% endif %}
+
+    </div>
+  </div>
+</body>
+
+<script>
+  // A function that shows the sub-heading when the results are displayed
+  if (document.getElementById("table").getElementsByTagName("tr").length > 2) {
+    document.querySelector('.sub-heading').classList.remove('hide');
+  }
+
+  // A function that hides the button and shows the loader and scanning heading
+  function hideButton() {
+    document.querySelector('button[type="submit"]').classList.add('hide');
+    document.querySelector('.loader').classList.remove('hide');
+    document.querySelector('.heading1').classList.add('hide');
+    document.querySelector('.heading2').classList.remove('hide');
+    document.querySelector('.results').classList.add('hide');
+    document.querySelector('.sub-heading').classList.add('hide');
+  }
+
+  // A function that shows the information container on hover
+  function showInfo(cell) {
+    var infoText = cell.parentElement.nextElementSibling;
+    infoText.classList.remove('hide');
+
+
+    let key = cell.parentElement.children[1].textContent;
+
+    if (key == "Interface Type:") {
+      infoText.children[0].textContent = "An interface type is an abstract tagged type that provides a restricted form of multiple inheritance.";
+    }
+
+    else if (key == "Download Speed:") {
+      infoText.children[0].textContent = "Download speed is the speed at which data is transferred from the internet to your PC, tablet or phone and it's used for every task from scrolling through social media, downloading files to streaming TV shows across Netflix.";
+    }
+
+    else if (key == "Upload Speed:") {
+      infoText.children[0].textContent = "Upload speed refers to “how quickly you send data from your device to the internet,” according to Ookla, an internet data firm known for its website that checks internet speeds.";
+    }
+
+    else if (key == "Ping:") {
+      infoText.children[0].textContent = "A ping is a tool used to check if a network device, such as a server, is online and responding to requests. It measures the time it takes for a packet of data to travel from your device to the destination and back again.";
+    }
+
+    else if (key == "Server:") {
+      infoText.children[0].textContent = "The role of a server is to share data as well as to share resources and distribute work.";
+    }
+
+    else if (key == "Hostname:") {
+      infoText.children[0].textContent = "A hostname is a network identifier, meaning the hostname is attached to a computer or server.";
+    }
+
+    else if (key == "IP Address:") {
+      infoText.children[0].textContent = "In essence, IP addresses are the identifier that allows information to be sent between devices on a network.";
+    }
+  }
+
+  // A function that hides the information container on mouseout
+  function hideInfo(cell) {
+    var infoText = cell.parentElement.nextElementSibling;
+    infoText.classList.add('hide');
+  }
+
+  // Loop through each row and add the additional information to the HTML string
+  var tableRows = document.querySelectorAll('tr');
+  tableRows.forEach(row => {
+    var key = row.children[1].textContent;
+  });
+
+</script>
+
+</html>
