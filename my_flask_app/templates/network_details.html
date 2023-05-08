@@ -8,16 +8,60 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     /* Small devices (phones) */
-    @media only screen and (max-width: 600px) {
+    @media only screen and (min-width: 200px) {
       .container {
-        font-size: 16px;
-        padding: 12px;
+        font-size: 12px;
+      }
+
+      .loader{
+        height: 160px;
+        width: 160px;
+      }
+
+      .loader:before{
+        border: 7px solid transparent;
+        border-top: 90px solid #81ecec;
       }
 
       button {
-        height: 180px;
-        width: 180px;
-        font-size: 16px;
+        height: 160px;
+        width: 160px;
+        font-size: 12px;
+      }
+
+      h1 {
+        font-size: 24px;
+      }
+
+      h2 {
+        font-size: 20px;
+      }
+
+      th,
+      td {
+        font-size: 13px;
+      }
+    }
+
+    /* Medium devices (tablets) */
+    @media only screen and (min-width: 600px) {
+      .container {
+        font-size: 14px;
+      }
+
+      .loader{
+        height: 200px;
+        width: 200px;
+      }
+      
+      .loader:before{
+        border: 7px solid transparent;
+        border-top: 110px solid #81ecec;
+      }
+
+      button {
+        height: 210px;
+        width: 210px;
       }
 
       h1 {
@@ -34,33 +78,18 @@
       }
     }
 
-    /* Medium devices (tablets) */
-    @media only screen and (max-width: 900px) {
-      .container {
-        font-size: 18px;
-      }
-
-      button {
-        height: 220px;
-        width: 220px;
-      }
-
-      h1 {
-        font-size: 36px;
-      }
-
-      h2 {
-        font-size: 30px;
-      }
-
-      th,
-      td {
-        font-size: 16px;
-      }
-    }
-
     /* Large devices (laptops/desktops) */
-    @media only screen and (min-width: 1200px) {
+    @media only screen and (min-width: 900px) {
+
+      .loader {
+        height: 240px;
+        width: 240px;
+      }
+
+      .loader:before{
+        border: 8px solid transparent;
+        border-top: 120px solid #81ecec;
+      }
 
       button {
         height: 240px;
@@ -100,8 +129,7 @@
     .loader {
       position: relative;
       display: inline-block;
-      height: 240px;
-      width: 240px;
+      margin-bottom: 15px;
       border-radius: 50%;
       background: conic-gradient(rgba(1, 182, 190, 0.3) 0%, transparent 65%);
       animation: radarRotate 1s infinite linear;
@@ -124,8 +152,6 @@
       width: 0;
       top: 0;
       left: calc(50% - 8px);
-      border: 8px solid transparent;
-      border-top: 120px solid #81ecec;
       filter: drop-shadow(0 0 12px #01b6be);
     }
 
@@ -146,8 +172,6 @@
     button {
       position: relative;
       cursor: pointer;
-      height: 240px;
-      width: 240px;
       font-size: 18px;
       margin-bottom: 15px;
       font-weight: bold;
@@ -200,7 +224,6 @@
     }
 
     .content {
-      display: flex;
       width: 100%;
       margin: 12px 0 32px 0;
       flex-direction: column;
@@ -208,13 +231,13 @@
 
     h1 {
       line-height: 1.3;
-      margin-bottom: 13px;
+      margin-bottom: 20px;
       color: #aaffff;
       text-shadow: 0 0 8px #81ecec;
     }
 
     h2 {
-      margin-bottom: 13px;
+      margin-bottom: 20px;
       color: #aaffff;
       text-shadow: 0 0 8px #81ecec;
     }
@@ -266,10 +289,7 @@
       <h1 style="text-align: center">Scanning...</h1>
     </div>
     <span class="loader hide"></span>
-    <div class="content">
-      <!--A form with a button to trigger the hideButton() function -->
-    </div>
-    <div class="Button" style="display: flex; justify-content: center;">
+    <div class="Button" style="justify-content: center">
       <form method="post">
         <button type="submit" onclick="hideButton()">Scan</button>
       </form>
